@@ -16,8 +16,10 @@ public interface InsuranceList {
     public double findHealthRate(int healthGrade);
     public double findTravelRate(int country, int period);
 
-	public void idevelop(String iType, String iName, String content, String period, String fee, String maxReward);
+	
 
+	public void idevelop(String iType, String iName, String content, String period, String fee, String maxReward);
+	public String getInsurance(int i);
     //Update
 
 }

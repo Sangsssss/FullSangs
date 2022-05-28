@@ -1,5 +1,6 @@
 package Insurance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import repository.InsuranceRepository;
@@ -8,7 +9,7 @@ import repository.InsuranceRepository;
 public class InsuranceListImpl implements InsuranceList{
 
 //    private final InsuranceRepository insuranceRepository;
-
+	ArrayList<Insurance> a = new ArrayList<Insurance>();
 
     @Override
     public void addInsurance(Insurance insurance) {
@@ -110,8 +111,16 @@ public class InsuranceListImpl implements InsuranceList{
 	@Override
 	public void idevelop(String iType, String iName, String content, String period, String fee, String maxReward) {
 		// DB넣기
-		System.out.println("저장완료");
+		String development = iType + " " + iName  + " " + content + " " + period + " " + fee + " " + maxReward;
+		a.add(new Car(development));
 	}
+	
+	
+
+	public String getInsurance(int i) {
+		return this.a.get(i).toString();
+	}
+
 
 
 }
