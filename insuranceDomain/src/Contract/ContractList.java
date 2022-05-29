@@ -11,6 +11,8 @@ public interface ContractList {
 
 
     public String getSuggestion(String currentUser);
+    public Subscription getSubscription(String userId);
 
 	public void addSuggestion(int i);
+	public void addSubscription(int i);
 }

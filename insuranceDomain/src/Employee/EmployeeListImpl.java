@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import Contract.ContractList;
 import Contract.ContractListImpl;
+import Contract.Subscription;
+import Contract.Suggestion;
 import Insurance.InsuranceList;
 import Insurance.InsuranceListImpl;
 
@@ -14,16 +16,21 @@ import Insurance.InsuranceListImpl;
 	public class EmployeeListImpl implements EmployeeList{
 	static InsuranceList insurance = new InsuranceListImpl();
 	static ContractList contract = new ContractListImpl();
-	static ArrayList<Suggestion> suggestions;
+	static ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
+	static ArrayList<Subscription> subscriptions = new ArrayList<Subscription>();
 	BufferedReader objReader = new BufferedReader(new InputStreamReader(System.in));
     //private final EmployeeRepository employeeRepository;
 	
-	public void addSuggestion(int i, String userIdx) {
-		suggestions = new ArrayList<Suggestion>();
+	public void writeSuggestion(int i, String userIdx) {
 		suggestions.add(new Suggestion(this.getEmpName() + " " + userIdx + " " +insurance.getIType(i)+ " " + insurance.getIName(i)+ " " + insurance.getFee(i)
 		+ " " + insurance.getPeriod(i) + " " +  insurance.getContent(i)));
 		System.out.println(suggestions.get(0).toString());
-		
+	}
+	
+	public void writeSubscription(int i, String userIdx) {
+		subscriptions.add(new Subscription(this.getEmpName() + " " + userIdx + " " +insurance.getIType(i)+ " " + insurance.getIName(i)+ " " + insurance.getFee(i)+
+		 " " + insurance.getPeriod(i) + " " +  insurance.getContent(i)));
+		System.out.println(subscriptions.get(0).toString());
 	}
 	
 //    @Override
@@ -34,20 +41,11 @@ import Insurance.InsuranceListImpl;
 		return "이상원";
 	}
 
-	@Override
-	public void addSubscription(int i) throws IOException {
-		System.out.println("--------------청약서--------------");	
-		System.out.println("                    보험설계사 "+  this.getEmpName());
-		System.out.println("보험 종류 : " + insurance.getIType(i) + " | " + "보험 이름 : " + insurance.getIName(i));
-		
-		if(insurance.getIType(i).contains("화재")) {
-		System.out.print("건물 개수 : ");
-		System.out.print("건물 금액 : "); 
-		}
-		
-	}
 
-	public String sendSuggestion(int i) {
-	   return suggestions.get(i).toString();
-	}
+	public Suggestion sendSuggestion(int i) {
+		   return suggestions.get(i);
+		}
+	public Subscription sendSubscription(int i) {
+		   return subscriptions.get(i);
+		}
 }

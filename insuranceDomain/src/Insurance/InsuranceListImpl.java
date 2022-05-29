@@ -58,7 +58,7 @@ public class InsuranceListImpl implements InsuranceList{
 
     @Override
     public double findFireRate(int buildingCount, int buildingPrice) {
-        double buildingCountRate =1;
+        double buildingCountRate = 1;
         double buildingPriceRate = 1;
 
         if(buildingCount <=3) {buildingCountRate = 2.2;}

@@ -26,51 +26,11 @@ public class Main {
 		String sChoice = objReader.readLine().trim();
 		switch(sChoice) {
 		case "1" : 
-			ArrayList<User> a = user.findUserList();
-			String list = "";
-	        for(int i=0; i<a.size(); i++) {
-	        list += a.get(i).toString() + "\n";
-	        }
-			System.out.println(list);	
-			System.out.println("*******고객을 선택해주세요.*******");
-			String uchoice = objReader.readLine().trim();
-			String userData = user.getUserData(uchoice);
-			String userIdx = user.getUserIdx(uchoice);
-			System.out.println(userData);
-			//버튼 클릭시?
-			System.out.println("계약을 계속 진행하시겠습니까?");
-			System.out.println("1. 예");
-			System.out.println("2. 아니오");
-			if(objReader.readLine().equals("1")) {
-				System.out.println("보험 상품 선택 후, 가입 설계서를 작성해주세요.");	
-				for(int i = 0; i<insurance.getArrayCount(); i++) {
-					System.out.println((i+1) + " " + insurance.getIName(i));
-				}
-				String iChoice = objReader.readLine().trim();
-				switch(iChoice) {
-				case "1" : 
-					employee.addSuggestion(0, userIdx);
-				//전송 버튼 클릭시
-				System.out.println("전송하기 YES/NO");	
-				if(objReader.readLine().equals("YES")) {
-					contract.addSuggestion(0);
-					System.out.println("전송이 완료되었습니다.");	
-					System.out.println("---------------------------------");	
-					System.out.println("청약서를 작성해주세요.");
-					employee.addSubscription(0);
-				} else return;
-				
-				
-					break;
-				case "2" :
-					break;
-			}
-			} else {
-				System.out.println("계약 진행을 중단합니다");
-			}
-				break;
+			WriteDocument(objReader);
+			break;
 	//-----------------------------------------------------------------------------------------------	
-		case "3" : developIn(objReader);
+		case "3" : 
+			developIn(objReader);
 		    break;
 		    
 		    
@@ -78,10 +38,36 @@ public class Main {
 				   System.out.println("1. 예 2. 아니오");
 				   if(objReader.readLine().trim().contains("1")) {
 					   System.out.println(contract.getSuggestion(currentUser)); 
-					   
 				   }
 				   else {
-					   
+					   break;
+				   }
+				   System.out.println("이어서 청약서를 확인하시겠습니까?");
+				   System.out.println("1. 예 2. 아니오");
+				   if(objReader.readLine().trim().contains("1")) {
+					   System.out.println(contract.getSubscription(currentUser)); 
+					   switch(contract.getSubscription(currentUser).getIType()) {
+						case "화재" : System.out.println("건물 개수를 입력하세요");
+						int value1 = Integer.parseInt(objReader.readLine().trim());
+						System.out.println("건물 가격을 입력하세요");
+						int value2 = Integer.parseInt(objReader.readLine().trim());
+						System.out.println("월납입료는 "+contract.getSubscription(currentUser).getFee()*insurance.findFireRate(value1, value2) +" 입니다.");
+					   	
+						break;
+					   	
+							
+						default :
+					    	System.out.println("*******존재하지 않는 항목입니다.*******");
+					   }
+					   System.out.println("*******가입신청 하시겠습니까??*******");
+					   System.out.println("*********1.예 | 2.아니오*********");
+					   if(objReader.readLine().trim().contains("1")) {
+						   //Contract c = new Contract();
+					   }
+						   
+				   }
+				   else {
+					   break;
 				   }
 	    break;
 		    default :
@@ -89,6 +75,54 @@ public class Main {
 	//----------------------------------------------------------------------------------------------	    	
 		    	
 			}
+		}
+	}
+	private static void WriteDocument(BufferedReader objReader) throws IOException {
+		ArrayList<User> a = user.findUserList();
+		String list = "";
+		for(int i=0; i<a.size(); i++) {
+		list += a.get(i).toString() + "\n";
+		}
+		System.out.println(list);	
+		System.out.println("*******고객을 선택해주세요.*******");
+		String uchoice = objReader.readLine().trim();
+		String userData = user.getUserData(uchoice);
+		String userIdx = user.getUserIdx(uchoice);
+		System.out.println(userData);
+		//버튼 클릭시?
+		System.out.println("계약을 계속 진행하시겠습니까?");
+		System.out.println("1. 예");
+		System.out.println("2. 아니오");
+		if(objReader.readLine().equals("1")) {
+			System.out.println("보험 상품 선택 후, 가입 설계서를 작성해주세요.");	
+			for(int i = 0; i<insurance.getArrayCount(); i++) {
+				System.out.println((i+1) + " " + insurance.getIName(i));
+			}
+			String iChoice = objReader.readLine().trim();
+			switch(iChoice) {
+			case "1" : 
+				employee.writeSuggestion(0, userIdx);
+			//전송 버튼 클릭시
+			System.out.println("가입 설계서 전송하기 YES/NO");	
+			if(objReader.readLine().equals("YES")) {
+				contract.addSuggestion(0);
+				System.out.println("전송이 완료되었습니다.");	
+				System.out.println("---------------------------------");	
+				System.out.println("청약서를 작성해주세요.");
+			} else break;
+				employee.writeSubscription(0, userIdx);
+				System.out.println("청약서 전송하기 YES/NO");	
+				if(objReader.readLine().equals("YES")) {
+					contract.addSubscription(0);
+					System.out.println("전송이 완료되었습니다.");	
+					System.out.println("---------------------------------");	
+				} else break;
+				break;
+			case "2" :
+				break;
+		}
+		} else {
+			System.out.println("계약 진행을 중단합니다");
 		}
 	}
 	private static void developIn(BufferedReader objReader) throws IOException {
@@ -126,7 +160,7 @@ public class Main {
 				   insurance.idevelop(iType,iName, period, fee, maxReward, content);
 	}
 	private static void printWindow() {
-		System.out.println("1. 계약");
+		System.out.println("1. 문서작성");
 		System.out.println("2. 로그인"); //후순위
 		System.out.println("3. 보험개발"); //
 		System.out.println("4. 보험 계약");
