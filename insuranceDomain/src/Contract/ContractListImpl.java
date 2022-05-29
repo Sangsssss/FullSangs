@@ -1,41 +1,40 @@
 package Contract;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import domain.CheckUw;
-import repository.ContractRepository;
+import Employee.EmployeeList;
+import Employee.EmployeeListImpl;
 
 
 public class ContractListImpl implements ContractList{
 
-    private final ContractRepository contractRepository;
-
+    static EmployeeList employee = new EmployeeListImpl();
+    ArrayList<String> suggestions;
    
     @Override
     public void addContract(Contract contract) {
-        contractRepository.save(contract);
-    }
-
-    @Override
-    public List<Contract> findContractList() {
-        return contractRepository.findAll();
-    }
-
-    @Override
-    public Contract findContract(Long contractIdx) {
-        return contractRepository.findOne(contractIdx);
-    }
-
-  
-    @Override
-    public void modifyCheckUw(Long contractIdx) {
-        Contract findContract = contractRepository.findOne(contractIdx);
-        findContract.setCheckUw(CheckUw.PASS);
+//        contractRepository.save(contract);
     }
 
 
-    @Override
-    public void modifyContractDate(int contractIdx) {
-        //상의후 수정
-    }
+	public void addSuggestion(int i) {
+		suggestions = new ArrayList<String>();
+		suggestions.add(employee.sendSuggestion(i));
+		System.out.println(suggestions.get(i));
+	}
+
+
+	public String getSuggestion(String userId) {
+		for(int i = 0; i<this.suggestions.size(); i++) {
+			if(suggestions.get(i).matchId(userId)) {
+				
+			}
+		}
+		
+		
+	}
+
+
+
+
 }

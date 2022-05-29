@@ -1,5 +1,6 @@
 package Insurance;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface InsuranceList {
@@ -19,7 +20,15 @@ public interface InsuranceList {
 	
 
 	public void idevelop(String iType, String iName, String content, String period, String fee, String maxReward);
+	
+	
+	public String getIType(int i);
 	public String getInsurance(int i);
+	public String getIName(int i);
+	public String getContent(int i);
+	public int getArrayCount();
+	public int getFee(int i);
+	public int getPeriod(int i);
     //Update
 
 }

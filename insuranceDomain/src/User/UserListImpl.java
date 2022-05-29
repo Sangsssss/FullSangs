@@ -1,17 +1,15 @@
 package User;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import domain.CheckStatus;
-import repository.UserRepository;
-import repository.UserSearch;
+import Contract.ContractList;
+import Contract.ContractListImpl;
 
 public class UserListImpl implements UserList{
 
-    //private final UserRepository userRepository;
-	
+    //private final UserRepository userRepository;	
 
+	static ContractList contract = new ContractListImpl();
     @Override
     public void addUser(User user) {
        
@@ -66,6 +64,25 @@ public class UserListImpl implements UserList{
     		}
     	return "고객을 찾을 수 없다";    	
     }
+    
+    public String getUserIdx(String userId) {
+    	ArrayList<User> a= new ArrayList<>();
+    	User user1 = new User("123", "Qwe", true, "qwe");
+    	User user2 = new User("234", "Qwe", true, "qwe");
+    	User user3 = new User("345", "Qwe", true, "qwe");
+    	User user4 = new User("456", "Qwe", true, "qwe");
+    	a.add(user1);	
+    	a.add(user2);	
+    	a.add(user3);	
+    	a.add(user4);
+    	for (int i = 0; i < a.size(); i++) {
+			User user = (User) a.get(i);
+			if(user.matchId(userId)) {
+				return user.getUserIdx();
+			}
+		}
+		return null;
+    }
 //
 //    @Override
 //    public List<User> findCheckUwUserList(UserSearch userSearch) {
@@ -82,5 +99,8 @@ public class UserListImpl implements UserList{
 //        return userRepository.findMaturityUserList();
 //
 //    }
+
+
+
     
 }

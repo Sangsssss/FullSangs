@@ -3,14 +3,16 @@ package Insurance;
 import java.util.ArrayList;
 import java.util.List;
 
-import repository.InsuranceRepository;
-
 
 public class InsuranceListImpl implements InsuranceList{
 
 //    private final InsuranceRepository insuranceRepository;
-	ArrayList<Insurance> a = new ArrayList<Insurance>();
+	static ArrayList<Insurance> a = new ArrayList<Insurance>();
 
+	public int getArrayCount() {
+		return a.size();
+	}
+	
     @Override
     public void addInsurance(Insurance insurance) {
 //        insuranceRepository.save(insurance);
@@ -109,9 +111,9 @@ public class InsuranceListImpl implements InsuranceList{
     }
 
 	@Override
-	public void idevelop(String iType, String iName, String content, String period, String fee, String maxReward) {
+	public void idevelop(String iType, String iName, String period, String fee, String maxReward, String content) {
 		// DB³Ö±â
-		String development = iType + " " + iName  + " " + content + " " + period + " " + fee + " " + maxReward;
+		String development = iType + " " + iName  +   " " + period + " " + fee + " " + maxReward + " " + content;
 		a.add(new Car(development));
 	}
 	
@@ -119,6 +121,24 @@ public class InsuranceListImpl implements InsuranceList{
 
 	public String getInsurance(int i) {
 		return this.a.get(i).toString();
+	}
+	
+	public String getIType(int i) {
+		return this.a.get(i).getIType(); 	
+	}
+	
+	public String getIName(int i) {
+		return this.a.get(i).getIName();
+	}
+	public String getContent(int i) {
+		return this.a.get(i).getContent();
+	
+	}
+	public int getFee(int i) {
+		return this.a.get(i).getFee();
+	}
+	public int getPeriod(int i) {
+		return this.a.get(i).getPeriod();
 	}
 
 

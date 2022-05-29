@@ -42,6 +42,11 @@ public class User {
         String stringReturn =  this.id + " " + this.name+ " " + this.sex+ " " + this.job;
         return stringReturn;
     }
+    
+    public String getUserIdx() {
+    	return id;
+    }
+    
     public boolean matchId(String userId) {
         return this.id.equals(userId);
     }

@@ -2,7 +2,12 @@ package Insurance;
 
 public class Health extends Insurance {
 
-    private Long healthIdx;
+    public Health(String inputString) {
+		super(inputString);
+		// TODO Auto-generated constructor stub
+	}
+
+	private Long healthIdx;
 
     private int healthGrade;
 
